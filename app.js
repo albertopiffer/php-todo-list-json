@@ -17,7 +17,7 @@ createApp({
             axios
                 .get('./server.php')
                 .then((res) => {
-                    //console.log(res.data.response.length)
+                    console.log(res.data.response)
                     for (let i = 0; i < res.data.response.length; i++) {
                         this.tasks.push(res.data.response[i])
                     }

@@ -1,19 +1,18 @@
 <?php
 
-$responseData = [
-    [
-        'text' => 'bruh1',
+$data_string = file_get_contents('./data.json');
+
+$decode = json_decode($data_string);
+
+$responseData = [];
+
+foreach ($decode as $text) {
+    $responseData[] = [
+        'text' => $text,
         'done' => false,
-    ],
-    [
-        'text' => 'bruh2',
-        'done' => false,
-    ],
-    [
-        'text' => 'bruh3',
-        'done' => false,
-    ]
-];
+    ];
+}
+
 
 header('Content-Type: application/json');
 

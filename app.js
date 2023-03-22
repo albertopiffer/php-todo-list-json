@@ -4,27 +4,7 @@ createApp({
     data() {
 
         return {
-            tasks: [
-                {
-                    text: 'task1',
-                    done: false,
-                },
-
-                {
-                    text: 'task2',
-                    done: true,
-                },
-
-                {
-                    text: 'task3',
-                    done: false,
-                },
-
-                {
-                    text: 'task4',
-                    done: false,
-                },
-            ],
+            tasks: [],
 
             inputValue: '',
         }
@@ -32,6 +12,19 @@ createApp({
     },
 
     methods: {
+
+        fetch() {
+            axios
+                .get('./server.php')
+                .then((res) => {
+                    //console.log(res.data.response.length)
+                    for (let i = 0; i < res.data.response.length; i++) {
+                        this.tasks.push(res.data.response[i])
+                    }
+
+                })
+        },
+
         addTask() {
             const newTask = {
                 text: this.inputValue,
@@ -40,11 +33,19 @@ createApp({
             this.tasks.push(newTask)
             this.inputValue = ''
         },
+
         removeTask(startIndex) {
             this.tasks.splice(startIndex, 1)
         },
+
         invertiDone(task) {
             task.done = !task.done;
         },
+
     },
+
+    mounted() {
+        this.fetch();
+    },
+
 }).mount('#app')
